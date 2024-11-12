@@ -55,22 +55,86 @@ class productsController extends Controller
         ];
         return response()->json($data,201);
     }
-    public function getone($id)
+    public function show($id)
     {
-        $product = Products::find(id);
-        if (!student){
-        $data = [
-            'message'=> 'Estudiante no encontrado',
-            'status' => 404
+        $product = Products::find($id);
+
+        if (!$product){
+            $data = [
+                'message'=> 'Producto no encontrado',
+                'status' => 404
         ];
         return response ()->json($data,404);
     }
     $data = [
-        'student' =>$student,
+        'product' =>$product,
         'status' =>200
         ];
-        return response()->json($data,404);
+        return response()->json($data,200);
 
     }
+    public function eliminate($id)
+    {
+        $product = Products::find($id);
 
+        if (!$product){
+            $data = [
+                'message'=> 'Producto no encontrado',
+                'status' => 404
+        ];
+        return response ()->json($data,404);
+    }
+
+    $product->delete();
+
+    $data =[
+        'message' => 'Producto eliminado',
+        'status'  =>200
+    ];
+    return response ()->json($data,200);
+
+    }
+    public function update(Request $request,$id)
+    {
+        $product = Products::find($id);
+
+        if (!$product){
+            $data = [
+                'message'=> 'Producto no encontrado',
+                'status' => 404
+        ];
+        return response ()->json($data,404);
+    }
+
+    $validator = validator::make($request->all(),[
+
+        'name'=> 'required',
+        'category'=> 'required',
+        'description'=> 'required',
+        'amount'=> 'required|numeric'
+    ]);
+    if ($validator->fails()) {
+        $data =[
+            'message' => 'Error en la validación de datos',
+            'errors' => $validator->errors(),
+            'status' =>400
+        ];
+        return response()->json($data,400);
+    }
+
+    $product->name = $request->name;
+    $product->category = $request->category;
+    $product->description = $request->description;
+    $product->amount = $request->amount ;
+
+    $product->save();
+
+    $data = [
+        'message' => 'Producto actualizado',
+        'product'=> $product,
+        'status' => 200
+    ];
+
+    return response()->json($data,200);
+    }
 }

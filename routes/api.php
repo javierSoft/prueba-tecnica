@@ -8,16 +8,11 @@ use App\Http\Controllers\Api\productsController;
 Route::get('/productos', [productsController::class,'index']);
 
 
-Route::get('/productos/{id}', function () {
-    return 'Ver producto';
-});
+Route::get('/productos/{id}',[productsController::class,'show']);
 
 Route::post('/productos', [productsController::class,'store']);
 
-Route::put('/productos/{id}', function () {
-    return 'Actualizar productos';
-});
+Route::put('/productos/{id}',[productsController::class,'update']);
 
-Route::delete('/productos/{id}', function () {
-    return 'Eliminar productos';
-});
+Route::delete('/productos/{id}', [productsController::class,'eliminate']);
+
