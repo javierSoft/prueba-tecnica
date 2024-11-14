@@ -14,10 +14,7 @@ use Illuminate\Support\Facades\Validator;
  *         version="1.0.0",
  *         description="Documentación  de la API, incluyendo los endpoints de gestión de productos y órdenes.",
  *
- *         @OA\License(
- *             name="MIT",
- *             url="https://opensource.org/licenses/MIT"
- *         )
+ *
  *     ),
  *     @OA\Server(
  *         url="http://127.0.0.1:8000",

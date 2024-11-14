@@ -1,66 +1,170 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p> <p align="center"> <a href="#"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a> <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a> <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a> <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a> </p>
+API de Prueba Técnica
+Este proyecto es una API RESTful desarrollada con Laravel para una prueba técnica. La API permite gestionar recursos mediante operaciones CRUD y está documentada utilizando Swagger para facilitar la interacción y pruebas.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Tabla de Contenidos
+Características
+Tecnologías Utilizadas
+Requisitos Previos
+Instalación
+Configuración
+Ejecución
+Documentación de la API
+Ejemplos de Uso
+Contribuciones
+Licencia
+Características
+CRUD de Recursos: Permite crear, leer, actualizar y eliminar datos.
+Autenticación: Integrada utilizando JWT (JSON Web Token).
+Documentación Automática: Generada con Swagger para facilitar pruebas y comprensión.
+Validaciones: Validaciones robustas para los datos de entrada.
+Soporte para CORS: Permite el acceso desde diferentes orígenes.
+Tecnologías Utilizadas
+Laravel 10: Framework PHP para desarrollo web.
+MySQL: Base de datos relacional.
+JWT: Para autenticación segura.
+Swagger: Para la documentación de la API.
+Composer: Gestor de dependencias de PHP.
+Requisitos Previos
+PHP >= 8.1
+Composer
+MySQL
+Node.js y npm (opcional, para ejecutar tareas de frontend)
+Instalación
+Clona este repositorio y navega al directorio del proyecto:
 
-## About Laravel
+bash
+Copiar código
+git clone https://github.com/tu-usuario/tu-proyecto.git
+cd tu-proyecto
+Instala las dependencias del proyecto:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+bash
+Copiar código
+composer install
+Configura el archivo .env:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+bash
+Copiar código
+cp .env.example .env
+Genera la clave de la aplicación:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+bash
+Copiar código
+php artisan key:generate
+Configuración
+Configura la conexión a la base de datos en el archivo .env:
 
-## Learning Laravel
+env
+Copiar código
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nombre_base_datos
+DB_USERNAME=usuario
+DB_PASSWORD=contraseña
+Ejecuta las migraciones para crear las tablas:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+bash
+Copiar código
+php artisan migrate
+Si deseas poblar la base de datos con datos de prueba:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+bash
+Copiar código
+php artisan db:seed
+Ejecución
+Inicia el servidor de desarrollo:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+bash
+Copiar código
+php artisan serve
+La API estará disponible en: http://localhost:8000.
 
-## Laravel Sponsors
+Documentación de la API
+La documentación completa de la API está disponible en Swagger. Para acceder a ella, visita:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Swagger UI
+La documentación incluye todos los endpoints disponibles, métodos, parámetros de entrada y ejemplos de respuesta.
 
-### Premium Partners
+Endpoints Principales
+Autenticación
+POST /api/login: Iniciar sesión.
+POST /api/register: Registrar un nuevo usuario.
+POST /api/logout: Cerrar sesión.
+Gestión de Usuarios
+GET /api/users: Listar todos los usuarios.
+GET /api/users/{id}: Obtener detalles de un usuario.
+POST /api/users: Crear un nuevo usuario.
+PUT /api/users/{id}: Actualizar un usuario.
+DELETE /api/users/{id}: Eliminar un usuario.
+Para ver todos los endpoints, consulta la documentación de Swagger.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Ejemplos de Uso
+1. Crear un Usuario
+Request:
 
-## Contributing
+bash
+Copiar código
+curl -X POST "http://localhost:8000/api/users" \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "Juan Pérez",
+  "email": "juan@example.com",
+  "password": "123456"
+}'
+Response:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+json
+Copiar código
+{
+  "message": "Usuario creado exitosamente",
+  "user": {
+    "id": 1,
+    "name": "Juan Pérez",
+    "email": "juan@example.com"
+  }
+}
+2. Iniciar Sesión
+Request:
 
-## Code of Conduct
+bash
+Copiar código
+curl -X POST "http://localhost:8000/api/login" \
+-H "Content-Type: application/json" \
+-d '{
+  "email": "juan@example.com",
+  "password": "123456"
+}'
+Response:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+json
+Copiar código
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR...",
+  "token_type": "bearer",
+  "expires_in": 3600
+}
+Contribuciones
+Las contribuciones son bienvenidas. Si deseas contribuir, sigue estos pasos:
 
-## Security Vulnerabilities
+Haz un fork del repositorio.
+Crea una nueva rama (git checkout -b feature/nueva-funcionalidad).
+Realiza tus cambios y haz commit (git commit -m 'Agrega nueva funcionalidad').
+Envía un push a tu rama (git push origin feature/nueva-funcionalidad).
+Abre un Pull Request.
+Licencia
+Este proyecto está licenciado bajo la licencia MIT. Consulta el archivo LICENSE para más detalles.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Con este README, los usuarios de tu API tendrán una guía clara para la instalación, configuración y uso de la API. Además, la referencia a Swagger les permitirá explorar y probar los endpoints fácilmente.
 
-## License
 
-The Laravel  is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+
+
+
+
+
+
+

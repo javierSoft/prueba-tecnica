@@ -3,10 +3,6 @@
     "info": {
         "title": "API de Productos y Órdenes",
         "description": "Documentación  de la API, incluyendo los endpoints de gestión de productos y órdenes.",
-        "license": {
-            "name": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
-        },
         "version": "1.0.0"
     },
     "servers": [
