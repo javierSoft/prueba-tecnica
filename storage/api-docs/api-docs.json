@@ -1,0 +1,1070 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Productos y Órdenes",
+        "description": "Documentación  de la API, incluyendo los endpoints de gestión de productos y órdenes.",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000",
+            "description": "Servidor local de desarrollo"
+        },
+        {
+            "url": "https://api.example.com",
+            "description": "Servidor de producción"
+        }
+    ],
+    "paths": {
+        "/api/ordenes": {
+            "get": {
+                "tags": [
+                    "Órdenes"
+                ],
+                "summary": "Obtener todas las órdenes",
+                "description": "Este endpoint devuelve una lista de todas las órdenes registradas. Si no hay órdenes, retorna un mensaje indicando que no se encontraron registros.",
+                "operationId": "54e32b626955738721a74e7d5d2ed5c0",
+                "responses": {
+                    "200": {
+                        "description": "Lista de órdenes o mensaje de que no hay órdenes",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "description": "Lista de órdenes",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "customer_name": {
+                                                        "type": "string",
+                                                        "example": "Juan Pérez"
+                                                    },
+                                                    "customer_email": {
+                                                        "type": "string",
+                                                        "example": "juan.perez@example.com"
+                                                    },
+                                                    "total_price": {
+                                                        "type": "number",
+                                                        "example": 199.99
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "pending"
+                                                    },
+                                                    "order_date": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-11-14T12:00:00Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "No hay órdenes registradas"
+                                                },
+                                                "status": {
+                                                    "type": "integer",
+                                                    "example": 200
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Órdenes"
+                ],
+                "summary": "Crear una nueva orden",
+                "description": "Este endpoint permite crear una nueva orden con información del cliente y el estado inicial.",
+                "operationId": "eb9e1a0efee76b2e12c1c3a359280931",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "customer_name": {
+                                        "description": "Nombre del cliente",
+                                        "type": "string",
+                                        "example": "Juan Pérez"
+                                    },
+                                    "customer_email": {
+                                        "description": "Correo electrónico del cliente",
+                                        "type": "string",
+                                        "example": "juan.perez@example.com"
+                                    },
+                                    "total_price": {
+                                        "description": "Precio total de la orden",
+                                        "type": "number",
+                                        "example": 199.99
+                                    },
+                                    "status": {
+                                        "description": "Estado inicial de la orden",
+                                        "type": "string",
+                                        "enum": [
+                                            "pending",
+                                            "completed",
+                                            "canceled"
+                                        ],
+                                        "example": "pending"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Orden creada con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Orden creada con éxito"
+                                        },
+                                        "order": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "customer_name": {
+                                                    "type": "string",
+                                                    "example": "Juan Pérez"
+                                                },
+                                                "customer_email": {
+                                                    "type": "string",
+                                                    "example": "juan.perez@example.com"
+                                                },
+                                                "total_price": {
+                                                    "type": "number",
+                                                    "example": 199.99
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "pending"
+                                                },
+                                                "order_date": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-11-14T12:00:00Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la validación de datos"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "customer_name": [
+                                                    "El campo nombre del cliente es requerido."
+                                                ]
+                                            }
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/ordenes/{id}": {
+            "get": {
+                "tags": [
+                    "Órdenes"
+                ],
+                "summary": "Obtener una orden específica",
+                "description": "Este endpoint permite obtener la información de una orden específica utilizando su ID.",
+                "operationId": "92e8c3f31a00209669a28af6967f2b0a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la orden a consultar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Orden encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "order": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "customer_name": {
+                                                    "type": "string",
+                                                    "example": "Juan Pérez"
+                                                },
+                                                "customer_email": {
+                                                    "type": "string",
+                                                    "example": "juan.perez@example.com"
+                                                },
+                                                "total_price": {
+                                                    "type": "number",
+                                                    "example": 199.99
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "pending"
+                                                },
+                                                "order_date": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-11-14T12:00:00Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Orden no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Orden no encontrada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Órdenes"
+                ],
+                "summary": "Actualizar una orden existente",
+                "description": "Este endpoint permite actualizar los datos de una orden específica.",
+                "operationId": "1e6aba3feda54d3f17ef82078c44b872",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la orden a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "customer_name": {
+                                        "description": "Nombre del cliente",
+                                        "type": "string",
+                                        "example": "Juan Pérez"
+                                    },
+                                    "customer_email": {
+                                        "description": "Correo electrónico del cliente",
+                                        "type": "string",
+                                        "example": "juan.perez@example.com"
+                                    },
+                                    "total_price": {
+                                        "description": "Precio total de la orden",
+                                        "type": "number",
+                                        "example": 199.99
+                                    },
+                                    "status": {
+                                        "description": "Estado de la orden",
+                                        "type": "string",
+                                        "enum": [
+                                            "pending",
+                                            "completed",
+                                            "canceled"
+                                        ],
+                                        "example": "completed"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Orden actualizada con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Orden actualizada con éxito"
+                                        },
+                                        "order": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "customer_name": {
+                                                    "type": "string",
+                                                    "example": "Juan Pérez"
+                                                },
+                                                "customer_email": {
+                                                    "type": "string",
+                                                    "example": "juan.perez@example.com"
+                                                },
+                                                "total_price": {
+                                                    "type": "number",
+                                                    "example": 199.99
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "completed"
+                                                },
+                                                "order_date": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-11-14T12:00:00Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la validación de datos"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "customer_name": [
+                                                    "El campo nombre del cliente es requerido."
+                                                ]
+                                            }
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Orden no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Orden no encontrada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Órdenes"
+                ],
+                "summary": "Eliminar una orden",
+                "description": "Este endpoint permite eliminar una orden existente por su ID.",
+                "operationId": "5721277a63e993d9786ca6d26aee518c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la orden a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Orden eliminada con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Orden eliminada con éxito"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Orden no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Orden no encontrada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/productos": {
+            "get": {
+                "tags": [
+                    "Productos"
+                ],
+                "summary": "Obtener todos los productos",
+                "description": "Este endpoint devuelve una lista de todos los productos registrados. Si no hay productos, retorna un mensaje indicando que no se encontraron registros.",
+                "operationId": "1adde327047214eb0921fdba340afbda",
+                "responses": {
+                    "200": {
+                        "description": "Lista de productos o mensaje de que no hay productos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "description": "Lista de productos",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Producto A"
+                                                    },
+                                                    "category": {
+                                                        "type": "string",
+                                                        "example": "Electrónica"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Descripción del producto"
+                                                    },
+                                                    "amount": {
+                                                        "type": "number",
+                                                        "example": 10
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "No hay productos registrados"
+                                                },
+                                                "status": {
+                                                    "type": "integer",
+                                                    "example": 200
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Productos"
+                ],
+                "summary": "Crear un producto",
+                "description": "Este endpoint permite crear un nuevo producto. Requiere los campos 'name', 'category', 'description' y 'amount'. Devuelve el producto creado o un error en caso de fallo en la validación o creación.",
+                "operationId": "919825ff5882341c963c4ae575e8eb9d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Producto A"
+                                    },
+                                    "category": {
+                                        "type": "string",
+                                        "example": "Electrónica"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Descripción del producto"
+                                    },
+                                    "amount": {
+                                        "type": "number",
+                                        "example": 10
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Producto creado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "products": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Producto A"
+                                                },
+                                                "category": {
+                                                    "type": "string",
+                                                    "example": "Electrónica"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Descripción del producto"
+                                                },
+                                                "amount": {
+                                                    "type": "number",
+                                                    "example": 10
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la validación de datos"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo name es obligatorio."
+                                                    }
+                                                },
+                                                "category": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo category es obligatorio."
+                                                    }
+                                                },
+                                                "description": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo description es obligatorio."
+                                                    }
+                                                },
+                                                "amount": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo amount debe ser un número."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error al crear el producto",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error al crear el producto"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/productos/{id}": {
+            "get": {
+                "tags": [
+                    "Productos"
+                ],
+                "summary": "Obtener un producto por ID",
+                "description": "Este endpoint permite obtener los detalles de un producto específico utilizando su ID. Devuelve el producto encontrado o un mensaje de error si no existe.",
+                "operationId": "a45ccfddd440b585f96a8b4e4d263222",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del producto",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Producto encontrado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "product": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Producto A"
+                                                },
+                                                "category": {
+                                                    "type": "string",
+                                                    "example": "Electrónica"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Descripción del producto"
+                                                },
+                                                "amount": {
+                                                    "type": "number",
+                                                    "example": 10
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Producto no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Producto no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Productos"
+                ],
+                "summary": "Actualizar un producto por ID",
+                "description": "Este endpoint permite actualizar los detalles de un producto específico utilizando su ID. Requiere los campos 'name', 'category', 'description' y 'amount'. Devuelve el producto actualizado o un error en caso de fallo en la validación o si el producto no existe.",
+                "operationId": "609c36bb1688b162708cf2672f2ed4e2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del producto a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Producto A"
+                                    },
+                                    "category": {
+                                        "type": "string",
+                                        "example": "Electrónica"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Descripción del producto"
+                                    },
+                                    "amount": {
+                                        "type": "number",
+                                        "example": 20
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Producto actualizado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Producto actualizado"
+                                        },
+                                        "product": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Producto A"
+                                                },
+                                                "category": {
+                                                    "type": "string",
+                                                    "example": "Electrónica"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Descripción del producto actualizado"
+                                                },
+                                                "amount": {
+                                                    "type": "number",
+                                                    "example": 20
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la validación de datos"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo name es obligatorio."
+                                                    }
+                                                },
+                                                "category": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo category es obligatorio."
+                                                    }
+                                                },
+                                                "description": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo description es obligatorio."
+                                                    }
+                                                },
+                                                "amount": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo amount debe ser un número."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Producto no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Producto no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Productos"
+                ],
+                "summary": "Eliminar un producto por ID",
+                "description": "Este endpoint permite eliminar un producto específico utilizando su ID. Devuelve un mensaje de éxito si el producto fue eliminado o un mensaje de error si no se encuentra el producto.",
+                "operationId": "88bf0257ff3dc7e6a640be288c784fd8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del producto a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Producto eliminado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Producto eliminado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Producto no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Producto no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Productos",
+            "description": "Endpoints para la gestión de productos"
+        },
+        {
+            "name": "Órdenes",
+            "description": "Endpoints para la gestión de órdenes"
+        }
+    ]
+}
