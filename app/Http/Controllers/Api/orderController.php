@@ -47,7 +47,7 @@ class OrderController extends Controller
  *     path="/api/ordenes",
  *     tags={"Órdenes"},
  *     summary="Crear una nueva orden",
- *     description="Este endpoint permite crear una nueva orden con información del cliente y el estado inicial.",
+ *     description="Este endpoint permite crear una nueva orden con información del cliente y el estado inicial. Requiere los campos 'customer_name', 'customer_email', 'total_price' y 'status' que es 'Estado de la orden','pending', 'completed', 'canceled'.",
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
@@ -330,7 +330,7 @@ class OrderController extends Controller
  *     path="/api/ordenes/{id}",
  *     tags={"Órdenes"},
  *     summary="Actualizar una orden existente",
- *     description="Este endpoint permite actualizar los datos de una orden específica.",
+ *     description="Este endpoint permite actualizar  una orden  utilizando su ID. Requiere los campos 'customer_name', 'customer_email', 'total_price' y 'status' que es 'Estado de la orden','pending', 'completed', 'canceled'. Devuelve el producto actualizado o un error en caso de fallo en la validación o si el producto no existe.",
  *     @OA\Parameter(
  *         name="id",
  *         in="path",

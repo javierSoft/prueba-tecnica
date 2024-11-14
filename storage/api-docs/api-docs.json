@@ -90,7 +90,7 @@
                     "Órdenes"
                 ],
                 "summary": "Crear una nueva orden",
-                "description": "Este endpoint permite crear una nueva orden con información del cliente y el estado inicial.",
+                "description": "Este endpoint permite crear una nueva orden con información del cliente y el estado inicial. Requiere los campos 'customer_name', 'customer_email', 'total_price' y 'status' que es 'Estado de la orden','pending', 'completed', 'canceled'.",
                 "operationId": "eb9e1a0efee76b2e12c1c3a359280931",
                 "requestBody": {
                     "required": true,
@@ -305,7 +305,7 @@
                     "Órdenes"
                 ],
                 "summary": "Actualizar una orden existente",
-                "description": "Este endpoint permite actualizar los datos de una orden específica.",
+                "description": "Este endpoint permite actualizar  una orden  utilizando su ID. Requiere los campos 'customer_name', 'customer_email', 'total_price' y 'status' que es 'Estado de la orden','pending', 'completed', 'canceled'. Devuelve el producto actualizado o un error en caso de fallo en la validación o si el producto no existe.",
                 "operationId": "1e6aba3feda54d3f17ef82078c44b872",
                 "parameters": [
                     {
