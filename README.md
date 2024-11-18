@@ -10,14 +10,15 @@ Características
 Tecnologías Utilizadas
 Requisitos Previos
 Instalación
+Configuración
 Documentación de la API
 Ejecucion y Ejemplo de Uso
 Licencia
 
 Características
 CRUD de Recursos: Permite crear, leer, actualizar y eliminar datos.
-Documentación Automática: Generada con Swagger para facilitar pruebas y comprensión.
-Validaciones: Validaciones robustas para los datos de entrada.
+Documentación : Generada con Swagger para facilitar pruebas y comprensión.
+Validaciones: Validaciones para los datos de entrada.
 Soporte para CORS: Permite el acceso desde diferentes orígenes.
 
 Tecnologías Utilizadas
@@ -32,28 +33,25 @@ PHP >= 8.2
 Composer
 
 Instalación
+
 Clona este repositorio y navega al directorio del proyecto:
 
-bash
-Copiar código
-git clone https://github.com/tu-usuario/tu-proyecto.git
+git clone https://github.com/javierSoft/prueba-tecnica.git
+
 cd tu-proyecto
+
 Instala las dependencias del proyecto:
-
-bash
-Copiar código
 composer install
+composer update
+
 Configura el archivo .env:
-
-bash
-Copiar código
 cp .env.example .env
-Genera la clave de la aplicación:
 
-bash
-Copiar código
+Genera la clave de la aplicación:
 php artisan key:generate
+
 Configuración
+
 Configura la conexión a la base de datos en el archivo .env:
 
 env
@@ -63,18 +61,17 @@ DB_PORT=3306
 DB_DATABASE=laravel
 DB_USERNAME=root
 DB_PASSWORD=
+
 Ejecuta las migraciones para crear las tablas:
-
-bash
 php artisan migrate
-Si deseas poblar la base de datos con datos de prueba:
 
-bash
+Si deseas poblar la base de datos con datos de prueba:
 php artisan db:seed
+
 Ejecución
+
 Inicia el servidor de desarrollo:
 
-bash
 php artisan serve
 La API estará disponible en: http://localhost:8000.
 
