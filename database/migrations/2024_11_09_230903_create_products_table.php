@@ -16,7 +16,17 @@ return new class extends Migration
             $table->string('name');
             $table->string('category');
             $table->string('description');
-            $table->string('amount');
+            $table->decimal('amount', 10, 2);
+            $table->timestamps();
+        });
+
+        Schema::create('orders', function (Blueprint $table) {
+            $table->id();
+            $table->string('customer_name');
+            $table->string('customer_email');
+            $table->decimal('total_price', 10, 2);
+            $table->enum('status', ['pending', 'completed', 'canceled'])->default('pending');
+            $table->timestamp('order_date')->useCurrent();
             $table->timestamps();
         });
     }
@@ -26,6 +36,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('orders');
         Schema::dropIfExists('products');
     }
 };
