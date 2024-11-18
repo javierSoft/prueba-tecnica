@@ -16,7 +16,7 @@
         "description": "Servidor local de desarrollo"
       },
       {
-        "url": "https://api-ejemplo.com/api",
+        "url": "http://44.203.110.17/api",
         "description": "Servidor de producción"
       }
     ],

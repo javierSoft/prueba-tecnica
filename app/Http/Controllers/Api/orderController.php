@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Validator;
  *         description="Servidor local de desarrollo"
  *     ),
  *     @OA\Server(
- *         url="https://api.example.com",
+ *         url="http://44.203.110.17",
  *         description="Servidor de producción"
  *     ),
  *
